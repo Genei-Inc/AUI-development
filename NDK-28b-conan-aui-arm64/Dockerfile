@@ -1,4 +1,5 @@
 FROM arm64v8/ubuntu:25.04
+
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
