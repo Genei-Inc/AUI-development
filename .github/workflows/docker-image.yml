@@ -16,6 +16,14 @@ jobs:
       contents: read
     steps:
     - uses: actions/checkout@v4
+
+    - name: Log in to GHCR
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Build the Docker image (clang-20-conan-aui)
       run: |
         docker build . --file clang-20-conan-aui/Dockerfile --tag ghcr.io/${{ github.repository_owner }}/clang-20-conan-aui:latest
