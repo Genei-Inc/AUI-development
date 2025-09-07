@@ -17,6 +17,7 @@ RUN apt-get update && \
     cmake \
     git \
     unzip \
+    make \
     && rm -rf /var/lib/apt/lists/*
 
 RUN wget https://dl.google.com/android/repository/android-ndk-r28b-linux.zip && \
