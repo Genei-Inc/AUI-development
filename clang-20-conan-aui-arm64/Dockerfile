@@ -1,4 +1,4 @@
-FROM arm64v8/ubuntu:25.04
+FROM arm64v8/ubuntu:plucky
 
 ENV DEBIAN_FRONTEND=noninteractive
 
