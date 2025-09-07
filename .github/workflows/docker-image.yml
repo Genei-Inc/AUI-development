@@ -14,8 +14,26 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Build the Docker image
+    - name: Build the Docker image (clang-20-conan-aui)
       run: |
         docker build . --file clang-20-conan-aui/Dockerfile --tag clang-20-conan-aui:$(date +%s)
+
+    - name: Tag the Docker image (clang-20-conan-aui)
+      run: |
+        docker push clang-20-conan-aui:$(date +%s)
+
+    - name: Build the Docker image (gcc-15-conan-aui)
+      run: |
         docker build . --file gcc-15-conan-aui/Dockerfile --tag gcc-15-conan-aui:$(date +%s)
+
+    - name: Push the Docker image (gcc-15-conan-aui)
+      run: |
+        docker push gcc-15-conan-aui:$(date +%s)
+
+    - name: Build the Docker image (ndk-28b-conan-aui)
+      run: |
         docker build . --file NDK-28b-conan-aui/Dockerfile --tag ndk-28b-conan-aui:$(date +%s)
+
+    - name: Push the Docker image (gcc-15-conan-aui)
+      run: |
+        docker push ndk-28b-conan-aui:$(date +%s)
