@@ -1,0 +1,38 @@
+name: Build and Push ndk-28b-conan-aui
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'NDK-28b-conan-aui/**'
+      - '.github/workflows/ndk-28b-conan-aui.yml'
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'NDK-28b-conan-aui/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set lowercase repository owner
+      run: |
+        echo "REPOSITORY_OWNER_LC=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
+    - name: Log in to GHCR
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push ndk-28b-conan-aui
+      run: |
+        docker build . --file NDK-28b-conan-aui/Dockerfile --tag ghcr.io/${{ env.REPOSITORY_OWNER_LC }}/ndk-28b-conan-aui:latest
+        docker push ghcr.io/${{ env.REPOSITORY_OWNER_LC }}/ndk-28b-conan-aui:latest
